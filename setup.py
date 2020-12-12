@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name="steppyr",
@@ -10,8 +10,7 @@ setup(
     long_description_content_type="text/markdown",
     keywords="servo motor library raspberry pi stepper",
     url="https://github.com/alangibson/steppyr",
-    packages=['steppyr'],
-    package_dir={'steppyr': 'src/steppyr'},
+    packages=find_packages(where='./src'),
     data_files=[('', ['README.md'])],
     install_requires=['RPi.GPIO', 'bokeh', 'spidev'],
     setup_requires=['pip'],
