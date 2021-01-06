@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="steppyr",
-    version="1.0",
+    version="1.0.1",
     author="Alan Gibson",
     author_email="alan.gibson@gmail.com",
     description="A stepper motor library in Python",
