@@ -13,7 +13,7 @@ setup(
     packages=find_packages(where='src'),
     package_dir={"": "src"},
     data_files=[('', ['README.md'])],
-    install_requires=['RPi.GPIO', 'bokeh', 'spidev'],
+    install_requires=['RPi.GPIO', 'spidev'],
     setup_requires=['pip'],
     classifiers=[
         "Programming Language :: Python :: 3",
