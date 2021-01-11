@@ -5,7 +5,7 @@ def check_1(operational_mode, clock_frequency, v_max):
   """
   Do NOT exceed VMAX ≤ fCLK 1/4 pulses for positioning mode
   """
-  if operation_mode == OPERATION_MODE_POSITIONING and v_max > ( clock_frequency / 4):
+  if operational_mode == OPERATION_MODE_POSITIONING and v_max > ( clock_frequency / 4):
     return False
   else:
     return True
@@ -18,7 +18,7 @@ def check_2(operation_mode, v_start, v_stop):
   """
   if operation_mode == OPERATION_MODE_POSITIONING and v_stop <= v_start:
     return False
-  else
+  else:
     return True
 
 def check_3():
