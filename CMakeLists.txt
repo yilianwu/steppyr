@@ -7,4 +7,4 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 find_package(Python3 3.7 COMPONENTS Development REQUIRED)
 find_package(Boost 1.67 COMPONENTS python3 REQUIRED)
 
-add_subdirectory(src)
+add_subdirectory(steppyr_cpp)
