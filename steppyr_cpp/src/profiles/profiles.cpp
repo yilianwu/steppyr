@@ -1,6 +1,8 @@
+#include <algorithm>
 #include "direction.hpp"
 #include "utils.h"
 #include "profiles/profiles.hpp"
+using std::abs;
 
 RampProfile::RampProfile()
     : _current_speed(0.0)
@@ -152,4 +154,38 @@ bool RampProfile::should_step()
     } else {
         return (this->_next_step_time_us && timestamp_us() >= this->_next_step_time_us);
     }
+}
+
+
+inline Direction RampProfile::calc_direction() const
+{
+    long distanceTo = this->steps_to_go();
+    if (distanceTo > 0) {
+        return DIRECTION_CW;
+    } else if (distanceTo < 0) {
+        return DIRECTION_CCW;
+    } else {
+        return DIRECTION_NONE;
+    }
+}
+
+inline double calc_step_interval_us(double speed)
+{
+    if (speed == 0.0) {
+        return 0;
+    }
+    return abs(1000000.0 / speed);
+}
+
+double RampProfile::calc_speed_from_rpm(double rpm) const
+{
+    double rps = rpm / 60.0;
+    double microsteps_per_rev = _full_steps_per_rev * _microsteps;
+    double speed_steps_per_sec = rps * microsteps_per_rev;
+    return speed_steps_per_sec;
+}
+
+double calc_speed_from_step_interval(double step_interval_us)
+{
+    return abs(1000000.0 / step_interval_us);
 }
