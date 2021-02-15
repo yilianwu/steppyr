@@ -15,4 +15,10 @@ set_target_properties(steppyr PROPERTIES
 target_include_directories(steppyr
     PUBLIC
         "include"
+    PRIVATE
+        ${pigpio_INCLUDE_DIRS}
+)
+target_link_libraries(steppyr
+    PRIVATE
+        ${pigpio_LIBRARY}
 )
