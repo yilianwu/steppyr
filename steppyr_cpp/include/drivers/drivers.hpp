@@ -23,7 +23,7 @@ public:
 
     virtual void set_microsteps(int microsteps);
 
-private:
+protected:
     int _microsteps;
     int _pulse_width_us;
     double _max_speed;
