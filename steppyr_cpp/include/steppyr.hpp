@@ -4,11 +4,15 @@
 #include "direction.hpp"
 #include "drivers/drivers.hpp"
 #include "profiles/profiles.hpp"
+#include <atomic>
 #include <memory>
+#include <mutex>
+#include <thread>
 
 class StepperController {
 public:
     StepperController(std::shared_ptr<Driver> driver, std::shared_ptr<RampProfile> profile);
+    ~StepperController();
 
     void activate();
     void shutdown();
@@ -20,11 +24,15 @@ public:
 
     bool run();
 
+    void spawn();
+    void terminate();
+    bool is_spawned() const;
+
     long next_steps_to_go(long target_steps) const;
     Direction next_direction(long target_steps) const;
 
-    std::shared_ptr<Driver> activator();
-    std::shared_ptr<RampProfile> profile();
+    //std::shared_ptr<Driver> activator();
+    //std::shared_ptr<RampProfile> profile();
 
     /* Proxy methods */
 
@@ -56,7 +64,16 @@ private:
     std::shared_ptr<Driver> _driver;
     std::shared_ptr<RampProfile> _profile;
 
-    long calc_degrees_to_steps(double degree) const;
+    // Since we are locking mutex in const member function
+    // We have to mark the mutex as mutable so we can lock them
+    mutable std::mutex driver_lock;
+    mutable std::mutex profile_lock;
+    std::thread stepper_thread;
+    std::atomic<bool> thread_running;
+
+    friend void stepper_thread_main(StepperController &stepper);
 };
+
+long calc_degrees_to_steps(double full_steps_per_rev, double microsteps, double degree);
 
 #endif

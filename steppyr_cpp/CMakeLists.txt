@@ -9,7 +9,7 @@ add_library(steppyr SHARED
 )
 
 set_target_properties(steppyr PROPERTIES
-    CMAKE_CXX_STANDARD 11
+    CXX_STANDARD 17
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/steppyr_cpp"
 )
 target_include_directories(steppyr
