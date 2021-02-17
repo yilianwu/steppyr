@@ -1,9 +1,17 @@
 #include <pybind11/pybind11.h>
-#include "steppyr.hpp"
+#include <direction.hpp>
+#include <steppyr.hpp>
+#include "modules.h"
 using std::shared_ptr;
 namespace py = pybind11;
 
 PYBIND11_MODULE(steppyr, m) {
+    py::module_ m_drivers = m.def_submodule("drivers");
+    module_def_drivers(m_drivers);
+
+    py::module_ m_profiles = m.def_submodule("profiles");
+    module_def_profiles(m_profiles);
+
     py::class_<StepperController>(m, "StepperController")
         .def(py::init<shared_ptr<Driver>, shared_ptr<RampProfile>>())
         .def("activate", &StepperController::activate)
@@ -36,4 +44,10 @@ PYBIND11_MODULE(steppyr, m) {
         .def("is_moving", &StepperController::is_moving)
         .def("direction", &StepperController::direction)
     ;
+
+    py::enum_<Direction>(m, "Direction")
+        .value("DIRECTION_NONE", Direction::DIRECTION_NONE)
+        .value("DIRECTION_CCW", Direction::DIRECTION_CCW)
+        .value("DIRECTION_CW", Direction::DIRECTION_CW)
+        .export_values();
 }
