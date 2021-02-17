@@ -5,8 +5,9 @@
 #include "direction.hpp"
 
 class Driver {
-public:
+protected:
     Driver(int microsteps = 1);
+public:
     virtual ~Driver() = 0;
 
     virtual void activate() = 0;
