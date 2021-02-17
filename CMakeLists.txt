@@ -8,3 +8,4 @@ find_package(pybind11 REQUIRED)
 find_package(pigpio REQUIRED)
 
 add_subdirectory(steppyr_cpp)
+add_subdirectory(steppyr)
