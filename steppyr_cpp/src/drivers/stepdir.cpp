@@ -2,7 +2,7 @@
 #include <pigpio.h>
 #include <unistd.h>
 
-StepDir::StepDir(int dir_pin, int step_pin, int enable_pin = 0)
+StepDir::StepDir(int dir_pin, int step_pin, int enable_pin)
     : Driver(), dir_pin(dir_pin), step_pin(step_pin), enable_pin(enable_pin)
 {
     gpioInitialise();

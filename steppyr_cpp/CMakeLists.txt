@@ -3,6 +3,7 @@
 add_library(steppyr SHARED
     src/steppyr.cpp
     src/drivers/drivers.cpp
+    src/drivers/stepdir.cpp
     src/profiles/profiles.cpp
     src/profiles/accel.cpp
     src/utils.cpp
