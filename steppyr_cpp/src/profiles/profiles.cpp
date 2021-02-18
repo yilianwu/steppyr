@@ -113,7 +113,7 @@ void RampProfile::set_target_rpm(double rpm)
 // Other helper properties
 long RampProfile::steps_to_go() const
 {
-    return this->_target_speed - this->_current_speed;
+    return this->_target_steps - this->_current_steps;
 }
 bool RampProfile::is_moving() const
 {
