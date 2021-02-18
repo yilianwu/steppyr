@@ -2,17 +2,17 @@
 #include <pigpio.h>
 #include <unistd.h>
 
-StepDir::StepDir(int dir_pin, int step_pin, int enable_pin)
+StepDirDriver::StepDirDriver(int dir_pin, int step_pin, int enable_pin)
     : Driver(), dir_pin(dir_pin), step_pin(step_pin), enable_pin(enable_pin)
 {
     gpioInitialise();
 }
 
-StepDir::~StepDir()
+StepDirDriver::~StepDirDriver()
 {
 }
 
-void StepDir::activate()
+void StepDirDriver::activate()
 {
     gpioSetMode(this->dir_pin, PI_OUTPUT);
     gpioWrite(this->dir_pin, 1);
@@ -21,12 +21,12 @@ void StepDir::activate()
     this->enable();
 }
 
-void StepDir::shutdown()
+void StepDirDriver::shutdown()
 {
     this->shutdown();
 }
 
-void StepDir::enable()
+void StepDirDriver::enable()
 {
     if (this->enable_pin > 0) {
         gpioSetMode(this->enable_pin, PI_OUTPUT);
@@ -34,7 +34,7 @@ void StepDir::enable()
     }
 }
 
-void StepDir::disable()
+void StepDirDriver::disable()
 {
     if (this->enable_pin > 0) {
         gpioSetMode(this->enable_pin, PI_OUTPUT);
@@ -42,7 +42,7 @@ void StepDir::disable()
     }
 }
 
-void StepDir::step(Direction direction)
+void StepDirDriver::step(Direction direction)
 {
     // Set direction first else get rogue pulses
     gpioWrite(this->dir_pin, (direction == DIRECTION_CCW ? 0 : 1));

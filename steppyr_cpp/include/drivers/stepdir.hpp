@@ -3,10 +3,10 @@
 
 #include "drivers/drivers.hpp"
 
-class StepDir : public Driver {
+class StepDirDriver : public Driver {
 public:
-    StepDir(int dir_pin, int step_pin, int enable_pin = 0);
-    ~StepDir();
+    StepDirDriver(int dir_pin, int step_pin, int enable_pin = 0);
+    ~StepDirDriver();
 
     void activate() override;
     void shutdown() override;

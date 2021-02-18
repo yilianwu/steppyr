@@ -58,7 +58,7 @@ class CMakeBuild(build_ext):
 
 setup(
     name="steppyr",
-    version="1.1.2",
+    version="1.2.0",
     author="Alan Gibson",
     author_email="alan.gibson@gmail.com",
     description="A stepper motor library in Python",
