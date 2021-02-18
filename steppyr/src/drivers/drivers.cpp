@@ -75,7 +75,7 @@ public:
 
 void module_def_drivers(py::module_ &m)
 {
-    py::class_<Driver, PyDriver>(m, "Driver")
+    py::class_<Driver, PyDriver, std::shared_ptr<Driver>>(m, "Driver")
         .def(py::init<>())
         .def(py::init<int>())
         .def("activate", &Driver::activate)

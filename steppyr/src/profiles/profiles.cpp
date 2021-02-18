@@ -117,7 +117,7 @@ public:
 
 void module_def_profiles(py::module_ &m)
 {
-    py::class_<RampProfile, PyProfile>(m, "RampProfile")
+    py::class_<RampProfile, PyProfile, std::shared_ptr<RampProfile>>(m, "RampProfile")
         .def(py::init<>())
         .def_property_readonly("current_speed", &RampProfile::current_speed)
         .def_property_readonly("target_speed", &RampProfile::target_speed)

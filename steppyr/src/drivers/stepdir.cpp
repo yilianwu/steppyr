@@ -6,7 +6,7 @@ namespace py = pybind11;
 
 void module_def_stepdir(py::module_ &m)
 {
-    py::class_<StepDir, Driver>(m, "StepDir")
+    py::class_<StepDir, Driver, std::shared_ptr<StepDir>>(m, "StepDir")
         .def(py::init<int, int>())
         .def(py::init<int, int, int>())
     ;

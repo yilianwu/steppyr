@@ -6,7 +6,7 @@ namespace py = pybind11;
 
 void module_def_accel(pybind11::module_ &m)
 {
-    py::class_<AccelProfile, RampProfile>(m, "AccelProfile")
+    py::class_<AccelProfile, RampProfile, std::shared_ptr<AccelProfile>>(m, "AccelProfile")
         .def(py::init<>())
     ;
 }
