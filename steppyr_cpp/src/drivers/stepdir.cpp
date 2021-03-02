@@ -1,11 +1,15 @@
 #include "drivers/stepdir.hpp"
 #include <pigpio.h>
+#include <stdexcept>
 #include <unistd.h>
+using std::runtime_error;
 
 StepDirDriver::StepDirDriver(int dir_pin, int step_pin, int enable_pin)
     : Driver(), dir_pin(dir_pin), step_pin(step_pin), enable_pin(enable_pin)
 {
-    gpioInitialise();
+    if (gpioInitialise() < 0) {
+        throw runtime_error("Failed to initialize gpio library");
+    }
 }
 
 StepDirDriver::~StepDirDriver()
