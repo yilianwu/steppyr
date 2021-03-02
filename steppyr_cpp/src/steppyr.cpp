@@ -5,18 +5,18 @@
 #include <thread>
 #include <unistd.h>
 using std::shared_ptr, std::scoped_lock;
-using std::memory_order_acquire, std::memory_order_acq_rel;
+using std::memory_order_acquire, std::memory_order_acq_rel, std::memory_order_relaxed;
 
 void stepper_thread_main(StepperController &stepper)
 {
     while (stepper.thread_running.load(memory_order_acquire)) {
         stepper.run();
-        usleep(10);
+        usleep(stepper.poll_us.load(memory_order_relaxed));
     }
 }
 
 StepperController::StepperController(shared_ptr<Driver> driver, shared_ptr<RampProfile> profile)
-    : _driver(driver), _profile(profile), thread_running(false)
+    : _driver(driver), _profile(profile), thread_running(false), poll_us(50)
 {}
 
 StepperController::~StepperController()
@@ -110,6 +110,16 @@ void StepperController::terminate()
 bool StepperController::is_spawned() const
 {
     return this->thread_running.load(memory_order_acquire);
+}
+
+unsigned StepperController::thread_poll_us() const
+{
+    return this->poll_us.load(memory_order_relaxed);
+}
+
+void StepperController::set_thread_poll_us(unsigned us)
+{
+    this->poll_us.store(us, memory_order_relaxed);
 }
 
 long StepperController::next_steps_to_go(long target_steps) const

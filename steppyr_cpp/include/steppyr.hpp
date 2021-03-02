@@ -27,6 +27,8 @@ public:
     void spawn();
     void terminate();
     bool is_spawned() const;
+    unsigned thread_poll_us() const;
+    void set_thread_poll_us(unsigned us);
 
     long next_steps_to_go(long target_steps) const;
     Direction next_direction(long target_steps) const;
@@ -70,6 +72,7 @@ private:
     mutable std::mutex profile_lock;
     std::thread stepper_thread;
     std::atomic<bool> thread_running;
+    std::atomic<unsigned> poll_us;
 
     friend void stepper_thread_main(StepperController &stepper);
 };

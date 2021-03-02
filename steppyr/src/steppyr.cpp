@@ -24,6 +24,8 @@ PYBIND11_MODULE(steppyr, m) {
         .def("spawn", &StepperController::spawn, py::call_guard<py::gil_scoped_release>())
         .def("terminate", &StepperController::terminate)
         .def("is_spawned", &StepperController::is_spawned)
+        .def_property_readonly("thread_poll_us", &StepperController::thread_poll_us)
+        .def("set_thread_poll_us", &StepperController::set_thread_poll_us)
         .def("next_steps_to_go", &StepperController::next_steps_to_go)
         .def("next_direction", &StepperController::next_direction)
         .def("step", &StepperController::step)
